@@ -63,7 +63,8 @@ public class AccountService {
         if (id < 0) {
             throw new RuntimeException("Minus");
         }
-        return accountRepository.findById(id).get();
+        return accountRepository.findById(id)
+                .orElseThrow(() -> new AccountException(ACCOUNT_NOT_FOUND));
     }
 
     @Transactional
@@ -84,9 +85,8 @@ public class AccountService {
     }
 
     private AccountUser getAccountUser(Long userId) {
-        AccountUser accountUser = accountUserRepository.findById(userId)
+        return accountUserRepository.findById(userId)
                 .orElseThrow(() -> new AccountException(USER_NOT_FOUND));
-        return accountUser;
     }
 
     private void validateDeleteAccount(Account account, AccountUser accountUser) {

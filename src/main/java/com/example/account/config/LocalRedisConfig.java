@@ -14,7 +14,7 @@ public class LocalRedisConfig {
     private RedisServer redisServer;
 
     @PostConstruct
-    public void StartRedis() {
+    public void startRedis() {
         redisServer = new RedisServer(redisPort);
         redisServer.start();
     }
